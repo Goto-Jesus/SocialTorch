@@ -1,0 +1,12 @@
+.content{
+    padding: 10px;
+}
+
+.posts{
+    margin-top: 15px;
+}
+
+textarea{
+    width: 400px;
+    height: 200px;
+}

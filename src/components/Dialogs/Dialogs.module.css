@@ -1,0 +1,73 @@
+@import url('https://fontlibrary.org/face/dejavu-sans-mono');
+
+.dialogs{
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    font-family: 'Dejavu Sans Mono', monospace;
+}
+
+.dialogsItems{
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+.dialogsItems .active{
+    color: brown;
+}
+
+/* .dialog{
+
+} */
+
+.dialog span{
+    display:inline-block;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    border-radius: 100%;
+    margin: 2px 8px 2px 2px;
+    padding: 8px;
+}
+
+
+
+.messages{
+    padding: 10px;
+    /* font-family: 'Dejavu Sans Mono', monospace; */
+    white-space:pre-wrap;
+    background-color: rgb(166, 193, 224);
+    overflow-y: scroll;
+    height: 670px;
+}
+
+.message{
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    display:inline-block;
+    max-width: 400px;
+  
+
+    padding: 4px 8px 4px 8px;
+    margin: 2px;
+}
+
+.inputMessages{
+    height: 200px;
+    padding: 10px;
+}
+
+.inputMessages textarea{
+    min-width: 400px;
+    max-width: 400px;
+    min-height: 170px;
+    max-height: 170px;
+
+    padding: 4px 8px 4px 8px;
+    margin: 2px;
+    white-space:pre-wrap;
+    font-size: 17px;
+}
