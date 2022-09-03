@@ -20,29 +20,24 @@ const MyPosts = (props) => {
   // };
 
   let newPostElement = React.createRef();
-  let newParagraf = React.createRef();
   
   let isWritingText;
-  if(isWritingText){
-    
-  }
 
   const writingText = () =>{
     isWritingText = true;
-    let currentText = newPostElement.current.value;
-    props.currentPost(currentText);
-    newPostElement.current.value = props.profilePage.writtenPost.currentText;
-    document.getElementById("actualText").innerHTML = props.profilePage.writtenPost.currentText;
+    let uiText = newPostElement.current.value;
+    props.currentPost(uiText);
+    let bllText = props.profilePage.writtenPost.currentText;
+    document.getElementById("actualText").textContent = bllText;
     isWritingText = false;
   };
 
   const addPost = () => {
-    let text = props.profilePage.writtenPost.currentText;;// принимаем текст с поля
-    let textLength = text.toString().length;
-    if(textLength>0){
-      props.addPost(text);//передаем текс в функцию BLL
+    let bllText = props.profilePage.writtenPost.currentText;
+    let checkLength = bllText.toString().length>0;
+    if(checkLength){
+      props.addPost();//передаем текс в функцию BLL
     }
-    newPostElement.current.value = "";// зануляем текст с поля
   };
 
   return (
@@ -52,7 +47,10 @@ const MyPosts = (props) => {
         <div>
           <p id="actualText">hello</p>
           {/* <textarea id="new-post" placeholder="your news..."></textarea> {/старый метод/} */}
-          <textarea ref={newPostElement} placeholder="your news..." onKeyUp={writingText}></textarea>
+          <textarea ref={newPostElement} 
+          placeholder="your news..." 
+          onChange={writingText} 
+          value={props.profilePage.writtenPost.currentText}/>
         </div>
         <div>
           <button onClick={addPost}>Send</button>

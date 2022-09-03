@@ -20,12 +20,12 @@ let state = {
             { id: 4, name: "Kolya." }
         ],
         messages: [
-            { id: 1, message: "hello" },
-            { id: 2, message: "how are you?" },
-            { id: 3, message: "ok nice" },
-            { id: 4, message: "i like you" },
-            { id: 5, message: "goodbuy." }
-        ]
+            { id: 1, message: "hello", date: "14:20" },
+            { id: 2, message: "how are you?", date: "14:21" },
+            { id: 3, message: "ok nice", date: "14:24" },
+            { id: 4, message: "goodbuy.", date: "14:30" }
+        ],
+        currentMessage:""
     },
     sidebar: {
         friends: [
@@ -36,21 +36,47 @@ let state = {
     }
 };
 
-export let addPost = (postMessange) =>{
+window.state = state;
+
+const render = () =>{
+    reRenger(state,addPost,currentPost,addMessange,newMessage);// соблюдаем чистую функцию
+};
+
+export let addPost = () =>{
     let post = {
         id: state.profilePage.posts.length + 1,
-        message: postMessange,
+        message: state.profilePage.writtenPost.currentText,
         likesCount: 0
     };
     state.profilePage.posts.push(post);
-    reRenger(state,addPost,currentPost);// соблюдаем чистую функцию
+    state.profilePage.writtenPost.currentText="";
+    render();
 };
 
 
 
 export let currentPost = (getChar) =>{
     state.profilePage.writtenPost.currentText=getChar;
-    reRenger(state,addPost,currentPost);// соблюдаем чистую функцию
+    render();
+}
+
+
+
+export let addMessange = () =>{
+    let date = new Date();
+    let textMessage ={
+        id: state.dialogsPage.messages.length+1,
+        message: state.dialogsPage.currentMessage,
+        date: `${date.getHours()}:${date.getMinutes()}`
+    };
+    state.dialogsPage.messages.push(textMessage);
+    render();
+}
+
+export let newMessage = (getChar) =>{
+    state.dialogsPage.currentMessage = getChar;
+    debugger;
+    render();
 }
 
 export default state;

@@ -23,21 +23,25 @@ const Dialogs = (props) => {
   // ]
 
   let messangeElement = React.createRef();
+
+  let onChangeMessange = () =>{
+    let uiText = messangeElement.current.value;
+    props.newMessage(uiText);
+  }
+
   let addMessange = () => {
-    let text = messangeElement.current.value;
-    alert(text);
+    props.addMessange();
+    props.newMessage("");
   };
 
   const styleButton = {
     fontSize: '60px'
   };
 
-  // debugger;
   let DialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} />);
-  let MessagesElements = props.dialogsPage.messages.map(m => <Message text={m.message} />);
+  let MessagesElements = props.dialogsPage.messages.map(m => <Message text={m.message} date={m.date} />);
 
   return (
-
       <div className={s.dialogs}>
         <div className={s.dialogsItems}>
           {DialogsElements}
@@ -45,14 +49,16 @@ const Dialogs = (props) => {
         </div>
 
         <div className={s.messages}>
+          <Message text={messangeASCII.scripty} />
+          {/* <Message text={messangeASCII.image} /> */}
           {MessagesElements}
-          {/* <Message text={messangeASCII.scripty} /> */}
-          <Message text={messangeASCII.image} />
-
         </div>
         <br/>
         <div className={s.inputMessages}>
-          <textarea ref={messangeElement}>Люблю Катюшу</textarea>
+          <textarea ref={messangeElement} 
+          placeholder="your messange..." 
+          onChange={onChangeMessange} 
+          value={props.dialogsPage.newMessage}/>
           <button onClick={addMessange} style={styleButton}>▶️</button>
         </div>
       </div>
