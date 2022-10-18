@@ -1,6 +1,7 @@
-import { reRenger } from "../renrer";
+let renderEntireTree = () =>{
+    console.log("state chaged");    
+};
 
-// Data.
 let state = {
     profilePage: {
         posts: [
@@ -38,11 +39,9 @@ let state = {
 
 window.state = state;
 
-const render = () =>{
-    reRenger(state,addPost,currentPost,addMessange,newMessage);// соблюдаем чистую функцию
-};
 
-export let addPost = () =>{
+
+export const addPost = () =>{
     let post = {
         id: state.profilePage.posts.length + 1,
         message: state.profilePage.writtenPost.currentText,
@@ -50,19 +49,17 @@ export let addPost = () =>{
     };
     state.profilePage.posts.push(post);
     state.profilePage.writtenPost.currentText="";
-    render();
+    renderEntireTree(state);
 };
 
 
 
-export let currentPost = (getChar) =>{
+export const currentPost = (getChar) =>{
     state.profilePage.writtenPost.currentText=getChar;
-    render();
+    renderEntireTree(state);
 }
 
-
-
-export let addMessange = () =>{
+export const addMessange = () =>{
     let date = new Date();
     let textMessage ={
         id: state.dialogsPage.messages.length+1,
@@ -70,13 +67,18 @@ export let addMessange = () =>{
         date: `${date.getHours()}:${date.getMinutes()}`
     };
     state.dialogsPage.messages.push(textMessage);
-    render();
+    state.dialogsPage.currentMessage = "";
+    renderEntireTree(state);
 }
 
-export let newMessage = (getChar) =>{
+export const newMessage = (getChar) =>{
     state.dialogsPage.currentMessage = getChar;
-    debugger;
-    render();
+    renderEntireTree(state);
+}
+
+export const subscribe = (observer) =>{// принимаем функцию с index.js
+    renderEntireTree = observer;  // патерн observer - наблюдатель (как addEventLister, onClick...)
+    // присваиваем существующей функции функционал с наблюдателя
 }
 
 export default state;
