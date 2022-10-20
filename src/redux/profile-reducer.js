@@ -11,37 +11,33 @@ let initialState = {
     currentPost: "",
 };
 
-const profileReducer = (state=initialState, action) => {
-    function _addPost() {
-        let post = {
-            id: state.posts.length + 1,
-            message: state.currentPost,
-            likesCount: 0
-        };
-        let checkLength = post.message.toString().length > 0;
-        if (checkLength) {
-            state.posts.push(post);
-        }
-        state.currentPost = "";
-    }
-    function _currentPost(getChar) {
-        state.currentPost = getChar;
-    }
-
+const profileReducer = (state = initialState, action) => {
+    let stateCopy = { ...state };
     switch (action.type) {
         case ADD_POST:
-            _addPost();
-            return state;
+            let post = {
+                id: state.posts.length + 1,
+                message: state.currentPost,
+                likesCount: 0
+            };
+            let checkLength = post.message.toString().length > 0;
+            if (checkLength) {
+                stateCopy.posts = [...state.posts];
+                stateCopy.posts.push(post);
+                stateCopy.currentPost = "";
+            }
+            return stateCopy;
+
         case CURRENT_POST:
-            _currentPost(action.getChar)
-            return state;
+            stateCopy.currentPost = action.getChar;
+            return stateCopy;
         default:
-            return state;
+            return stateCopy;
     }
 }
 
 // Екшены что вызываются
 export const addPostActionCreator = () => ({ type: ADD_POST })
-export const currentPostActionCreator = (char) => ({ type: CURRENT_POST, getChar: char})
+export const currentPostActionCreator = (char) => ({ type: CURRENT_POST, getChar: char })
 
 export default profileReducer;
